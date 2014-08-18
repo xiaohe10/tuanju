@@ -20,7 +20,7 @@ type_title = {
     'surround':'清华周边',
 
 }
-#@cache_page(60*12)
+@cache_page(60*60*6)
 def get_cubes(request):
     t = tuanju()
     if request.GET.has_key('tuanju_type'):
