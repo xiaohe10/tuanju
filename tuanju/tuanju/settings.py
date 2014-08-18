@@ -63,7 +63,7 @@ DATABASES = {
         'NAME': 'tuanju',
         'USER':'root',
         'PASSWORD':'123456789',
-        'HOST':'127.0.0.1',
+        'HOST':'115.28.212.177',
         'PORT':''
     }
 }
@@ -96,3 +96,9 @@ TEMPLATE_DIRS=(
 TEMPLATES_LOADERS = (
     'django.template.loaders.eggs.loader',
 )
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\','/')
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://example.com/media/", "http://media.example.com/"
+MEDIA_URL = '/media/'

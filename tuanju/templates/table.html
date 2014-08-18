@@ -1,0 +1,138 @@
+{% extends '_base.html' %}
+{% block tbody %}
+    {% for t in list %}
+    <tr>
+        <td class="info">{{ t.order }}</td>
+        <td>{{ t.name }}</td>
+        <td><img src='{{ t.icon }}' alt="图标" style="max-height:100px;max-width:100px"/></td>
+        <td><a href='{{ t.url }}' target="_blank">{{ t.url }}</a></td>
+        <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" onclick="modify('{{ t.id }}','{{ t.name }}','{{ t.url }}','{{ t.icon }}')">编辑</button>
+            <button class="btn btn-danger btn-sm" onclick="delete_weixin('{{ t.id }}','{{ t.name }}','{{ t.tuanju_type }}')">删除</button>
+            <button class="btn btn-sm" onclick="up('{{ t.id }}','{{ t.tuanju_type }}')"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <button class="btn btn-sm" onclick="down('{{ t.id }}','{{ t.tuanju_type }}')"><span class="glyphicon glyphicon-chevron-down"></span></button>
+            </td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+{% block modal %}
+
+ <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加</h4>
+      </div>
+      <div class="modal-body">
+
+            <form role="form" enctype="multipart/form-data" method="post" action="add">
+                {% csrf_token %}
+              <div class="form-group">
+                <input type="text" class="form-control" id="weixin_name" placeholder="微信名" name="name">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="weixin_name" placeholder="链接" name="url">
+              </div>
+              <div class="form-group">
+                <input type='file' id="imgInp"/>
+                <img id="blah" src="" alt="图标" style="max-height:100px;max-width:100px"/>
+              </div>
+                <input type="hidden" name="tuanju_type" value="{{ tuanju_type }}"/>
+              <button type="submit" class="btn btn-primary">提交</button>
+            </form>
+
+      </div>
+      <div class="modal-footer">
+
+          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">编辑</h4>
+      </div>
+      <div class="modal-body">
+            <form role="form" enctype="multipart/form-data" method="post" action="modify">
+                {% csrf_token %}
+              <div class="form-group">
+                <input id="edit_name" type="text" class="form-control" id="weixin_name" placeholder="微信名" name="name">
+              </div>
+              <div class="form-group">
+                <input id="edit_url" type="text" class="form-control" id="weixin_name" placeholder="链接" name="url">
+              </div>
+              <div class="form-group">
+                <input type='file' id="edit_imgInp"/>
+                <img id="edit_icon"  src="" alt="图标" style="max-height:100px;max-width:100px"/>
+              </div>
+                <input type="hidden" name="tuanju_type" value="{{ tuanju_type }}"/>
+                <input type="hidden" id="edit_id" name="id" />
+              <button type="submit" class="btn btn-primary">提交</button>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+  <script type="application/javascript">
+        function up(id,tuanju_type){
+                window.location.href="/up?id="+id+'&tuanju_type='+tuanju_type;
+        }
+        function down(id,tuanju_type){
+                window.location.href="/down?id="+id+'&tuanju_type='+tuanju_type;
+        }
+        function delete_weixin(id,name,tuanju_type) {
+            if(confirm('是否将 '+name+' 删除?')){
+                window.location.href="/delete?id="+id+'&tuanju_type='+tuanju_type;
+            }
+        }
+        function modify(id,name,url,icon) {
+
+               $("#edit_id").val(id);
+               $("#edit_name").val(name);
+                $("#edit_url").val(url);
+                $("#edit_icon").attr('src',icon);
+
+        }
+       function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+                $('#imgInp').attr('name','icon')
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+        function edit_readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#edit_icon').attr('src', e.target.result);
+                $('#edit_imgInp').attr('name','icon')
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+  $("#edit_imgInp").change(function(){
+        edit_readURL(this);
+    });
+  </script>
+
+{% endblock %}

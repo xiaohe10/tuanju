@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+
+    <style>
+        .row{
+            margin-top:10px;
+            width:100%;
+            float:left;
+        }
+        .col{
+            width:33%;
+            float:left;
+        }
+        img{
+            width:80%;
+            height:auto;
+            margin:10px auto;
+            float:left
+        }
+        span{
+            width:80%;
+            height:auto;
+            margin:5px auto;
+            float:left;
+            font-size:16px;
+            text-align:center;
+             white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
+        }
+        a{
+            color:black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+  <div class="row">
+      {% for t in list %}
+      <div class="col"><a href="{{ t.url }}"><img src="{{ t.icon }}" alt="{{ t.name }}"><span>{{ t.name }}</span></a></div>
+      {% endfor %}
+  </div>
+
+</body>
+</html>

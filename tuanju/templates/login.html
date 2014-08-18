@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>清华团聚</title>
+     {# Load the tag library #}
+    {% load bootstrap3 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    <script src="http:{% bootstrap_jquery_url %}"/>
+    {% bootstrap_javascript %}
+</head>
+<body>
+<div class="container">
+
+
+    <form action="/login" method="post" style="max-width: 400px; margin:100px auto;">
+        <h2>清华团聚管理平台</h2>
+        {% csrf_token %}
+
+        {{  login_errors }}
+        {% bootstrap_form login_form %}
+        {% buttons %}
+        <button type="submit" class="btn btn-primary">
+          登录
+        </button>
+        {% endbuttons %}
+    </form>
+
+</div>
+</body>
+</html>
