@@ -5,7 +5,7 @@
         <td class="info">{{ t.order }}</td>
         <td>{{ t.name }}</td>
         <td><img src='{{ t.icon }}' alt="图标" style="max-height:100px;max-width:100px"/></td>
-        <td><a href='{{ t.url }}' target="_blank">{{ t.url }}</a></td>
+        <td><div style="width:300px; white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;"><a href='{{ t.url }}' target="_blank" title='{{t.url}}'>{{ t.url }}</a></div></td>
         <td><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal" onclick="modify('{{ t.id }}','{{ t.name }}','{{ t.url }}','{{ t.icon }}')">编辑</button>
             <button class="btn btn-danger btn-sm" onclick="delete_weixin('{{ t.id }}','{{ t.name }}','{{ t.tuanju_type }}')">删除</button>
             <button class="btn btn-sm" onclick="up('{{ t.id }}','{{ t.tuanju_type }}')"><span class="glyphicon glyphicon-chevron-up"></span></button>

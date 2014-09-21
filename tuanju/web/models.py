@@ -4,7 +4,7 @@ from django.db import models
 class tuanju(models.Model):
     name = models.CharField(max_length =64)
     icon = models.FileField(upload_to='icons')
-    url = models.CharField(max_length=255)
+    url = models.TextField()
     tuanju_type = models.CharField(max_length = 64)
     order = models.IntegerField(default=0)
 

@@ -65,13 +65,14 @@
      <div class="col-md-6">{% bootstrap_messages messages %}</div>
      <div class="col-md-3"><a class='btn btn-success pull-right' href="cube?tuanju_type={{ tuanju_type }}" target="_blank">预览</a></div>
      <div class="col-md-3"><button class="btn btn-primary pull-right" data-toggle="modal" data-target="#addModal">添加</button></div>
+        <div class="table-responsive">
         <table class="table table-hover">
             <thead>
-                <td style="width: 50px" class="info">序号</td>
-                <td style="width: 200px">名称</td>
-                <td style="width: 70px">图片</td>
+                <td style="width: 50px;min-width:50px;" class="info">序号</td>
+                <td style="width: 150px;min-width:150px;">名称</td>
+                <td style="width: 70px;min-width:70px;">图片</td>
                 <td>链接</td>
-                <td style="width: 250px">操作</td>
+                <td style="width: 250px;min-width:250px;">操作</td>
             </thead>
             <tbody>
             {% block tbody %}
@@ -79,6 +80,7 @@
 
             </tbody>
         </table>
+      </div>
 
 
     </div> <!-- /container -->
