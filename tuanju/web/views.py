@@ -18,17 +18,23 @@ type_title = {
     'departments':'院系所',
     'zhibu':'团支部',
     'surround':'清华周边',
+    'all':'所有'
 
 }
-@cache_page(60*60*6)
+#@cache_page(60*60*6)
 def get_cubes(request):
     t = tuanju()
     if request.GET.has_key('tuanju_type'):
         tuanju_type = request.GET['tuanju_type']
-        list = t.list(tuanju_type)
-        title = type_title[tuanju_type]
     else:
-        list = t.list('')
+        tuanju_type='all'
+    key = None
+    if request.GET.has_key('key'):
+        key = request.GET['key']
+        if key == '':
+            key = None
+    list = t.list(tuanju_type=tuanju_type,key=key,target='show')
+    title = type_title[tuanju_type]
     return render(request,'cube.html',locals())
 
 @login_required(login_url='/login')
@@ -151,7 +157,7 @@ def up(request):
         tuanju_type = request.GET['tuanju_type']
         t = tuanju.objects.get(id = int(id))
         if t.order >1:
-            t1 = tuanju.objects.get(order = t.order-1)
+            t1 = tuanju.objects.get(order = t.order-1,tuanju_type = tuanju_type)
             t1.order = t.order
             t.order -= 1
             t.save()
@@ -170,7 +176,7 @@ def down(request):
         t = tuanju.objects.get(id = int(id))
         count = tuanju.objects.filter(tuanju_type = tuanju_type).count()
         if t.order < count:
-            t1 = tuanju.objects.get(order = t.order+1)
+            t1 = tuanju.objects.get(order = t.order+1,tuanju_type = tuanju_type)
             t1.order = t.order
             t.order += 1
             t.save()

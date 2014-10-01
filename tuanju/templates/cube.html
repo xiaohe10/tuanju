@@ -5,46 +5,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ title }}</title>
+    <link href="/media/static/css/bootstrap.css" rel="stylesheet" type="text/css" />
+     <style>
+         body{
+             margin:0px;
+         }
+         .weixin-row{
+             float:left;
+             width:100%;
 
-    <style>
-        .row{
-            margin-top:10px;
+
+         }
+         .weixin-pinyin{
+             float:left;
+             width:100%;
+             height:22px;
+             font-size:10px;
+             background-color: #eeeeee;
+             color:#555555;
+             padding:5px 0px;
+         }
+         .weixin-pinyin-span{
+             margin-left:10px;
+         }
+        .weixin-div{
             width:100%;
+            height:50px;
             float:left;
         }
-        .col{
-            width:33%;
+
+        .weixin-title{
+            margin:16px 4px;
             float:left;
-        }
-        img{
-            width:80%;
-            height:auto;
-            margin:10px auto;
-            float:left
-        }
-        span{
-            width:80%;
-            height:auto;
-            margin:5px auto;
-            float:left;
-            font-size:16px;
-            text-align:center;
-             white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow:hidden;
-        }
-        a{
             color:black;
+            vertical-align:middle;
+            font-size:16px;
         }
-    </style>
+        .weixin-icon{
+            background-size:48px 48px;
+            background-repeat:no-repeat;
+            float:left;
+        }
+         .weixin-hr{
+             height:1px;
+             background-color: #eeeeee;
+             width:100%;
+             margin:0 auto;
+             float:left;
+         }
+         .weixin-search{
+             width:100%;
+         }
+         .weixin-form{
+             width:100%;
+         }
+         .weixin-button{
+             width:40px !important;
+         }
+     </style>
 </head>
 
 <body>
 
 
-  <div class="row">
+
+       <div class="weixin-row">
+        <form class="form-inline" role="form" action="/cube" method="get" class="weixin-form">
+            <div class="form-group weixin-search">
+                <div class="input-group weixin-search">
+                  <input type="text" class="form-control" name="key">
+                    <input type="hidden" name="tuanju_type" value="{{ tuanju_type }}">
+
+                  <span class="input-group-btn weixin-button">
+                    <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                  </span>
+                </div>
+
+              </div>
+        </form>
       {% for t in list %}
-      <div class="col"><a href="{{ t.url }}"><img src="{{ t.icon }}" alt="{{ t.name }}"><span>{{ t.name }}</span></a></div>
+          {% if t.type == 'weixin' %}
+          <a class="weixin-div" href="{{ t.url }}">
+
+              <img class="weixin-icon" style="background-image: url({{ t.icon }});width: 48px; height: 48px;" src="/media/static/cover.png" alt="{{ t.name }}">
+               <span class="weixin-title">{{ t.name }}</span>
+          </a>
+            <div class="weixin-hr"></div>
+          {% else %}
+              <div class="weixin-pinyin"><span class="weixin-pinyin-span">{{ t.name }}</span></div>
+          {% endif %}
+
       {% endfor %}
-  </div>
+
+
+    </div>
 
 </body>
 </html>
